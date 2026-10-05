@@ -1,0 +1,11 @@
+{
+  "name": "GIRMAIC DD-PP AI",
+  "description": "Dire Dawa Prosperity Party Information & Voice Assistant. AI-powered information assistant. Not an official government or Prosperity Party representative unless formally authorized.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
+
