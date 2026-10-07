@@ -13,6 +13,7 @@ import { LanguageView } from './components/LanguageView';
 import { EscalationView } from './components/EscalationView';
 import { AdminDashboard } from './components/AdminDashboard';
 import { TestingSuiteView } from './components/TestingSuiteView';
+import { FAQView } from './components/FAQView';
 
 export function App() {
   const [currentTab, setCurrentTab] = useState<string>('chat');
@@ -55,7 +56,7 @@ export function App() {
           />
         )}
         {currentTab === 'voice' && (
-          <VoiceView language={language} documents={documents} />
+          <VoiceView language={language} documents={documents} setCurrentTab={setCurrentTab} />
         )}
         {currentTab === 'phone' && <PhoneView />}
         {currentTab === 'kb' && (
@@ -64,6 +65,14 @@ export function App() {
             setDocuments={setDocuments}
             language={language}
             userRole={userRole}
+          />
+        )}
+        {currentTab === 'faq' && (
+          <FAQView
+            language={language}
+            onSelectQuestion={(q) => {
+              setCurrentTab('chat');
+            }}
           />
         )}
         {currentTab === 'languages' && (

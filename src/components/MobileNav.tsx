@@ -1,7 +1,7 @@
 import React from 'react';
 import { LanguageCode } from '../types';
 import { TRANSLATIONS } from '../utils/translations';
-import { MessageSquare, Mic, PhoneCall, BookOpen, UserCheck, BarChart3 } from 'lucide-react';
+import { MessageSquare, Mic, PhoneCall, BookOpen, UserCheck, BarChart3, HelpCircle } from 'lucide-react';
 
 interface MobileNavProps {
   currentTab: string;
@@ -29,18 +29,18 @@ export const MobileNav: React.FC<MobileNavProps> = ({ currentTab, setCurrentTab,
         <span>{t.askByVoice.split(' ')[0]}</span>
       </button>
       <button
-        onClick={() => setCurrentTab('phone')}
-        className={`flex flex-col items-center gap-0.5 text-[10px] ${currentTab === 'phone' ? 'text-emerald-400 font-bold' : 'text-slate-400'}`}
-      >
-        <PhoneCall className="w-5 h-5" />
-        <span>Phone</span>
-      </button>
-      <button
         onClick={() => setCurrentTab('kb')}
         className={`flex flex-col items-center gap-0.5 text-[10px] ${currentTab === 'kb' ? 'text-emerald-400 font-bold' : 'text-slate-400'}`}
       >
         <BookOpen className="w-5 h-5" />
         <span>KB</span>
+      </button>
+      <button
+        onClick={() => setCurrentTab('faq')}
+        className={`flex flex-col items-center gap-0.5 text-[10px] ${currentTab === 'faq' ? 'text-emerald-400 font-bold' : 'text-slate-400'}`}
+      >
+        <HelpCircle className="w-5 h-5" />
+        <span>FAQ</span>
       </button>
       <button
         onClick={() => setCurrentTab('escalations')}

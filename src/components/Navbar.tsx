@@ -1,7 +1,7 @@
 import React from 'react';
 import { LanguageCode, UserRole } from '../types';
 import { TRANSLATIONS } from '../utils/translations';
-import { MessageSquare, Mic, PhoneCall, BookOpen, Globe, Shield, UserCheck, BarChart3, TestTube2 } from 'lucide-react';
+import { MessageSquare, Mic, PhoneCall, BookOpen, Globe, Shield, UserCheck, BarChart3, TestTube2, HelpCircle } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: string;
@@ -69,6 +69,13 @@ export const Navbar: React.FC<NavbarProps> = ({
         >
           <BookOpen className="w-4 h-4" />
           <span>{t.knowledgeBase}</span>
+        </button>
+        <button
+          onClick={() => setCurrentTab('faq')}
+          className={`hover:text-white transition-colors flex items-center gap-1.5 py-1 ${currentTab === 'faq' ? 'text-emerald-400 font-semibold border-b-2 border-emerald-400' : ''}`}
+        >
+          <HelpCircle className="w-4 h-4" />
+          <span>FAQs</span>
         </button>
         <button
           onClick={() => setCurrentTab('escalations')}

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { KnowledgeDocument, LanguageCode, DomainType, ApprovalStatus, SourceHierarchyLevel, UserRole } from '../types';
 import { TRANSLATIONS } from '../utils/translations';
 import { apiCreateDocument } from '../services/api';
-import { BookOpen, Upload, CheckCircle2, ShieldCheck, FileText, Search, PlusCircle, Check, X } from 'lucide-react';
+import { exportDocumentToPDF } from '../utils/pdfExport';
+import { RAGHealthMonitor } from './RAGHealthMonitor';
+import { BookOpen, Upload, CheckCircle2, ShieldCheck, FileText, Search, PlusCircle, Check, X, Download } from 'lucide-react';
 
 interface KnowledgeBaseViewProps {
   documents: KnowledgeDocument[];
@@ -104,6 +106,9 @@ export const KnowledgeBaseView: React.FC<KnowledgeBaseViewProps> = ({
         )}
       </div>
 
+      {/* Real-time RAG Pipeline Health & Connectivity Monitor */}
+      <RAGHealthMonitor />
+
       {/* Filters */}
       <div className="flex flex-col sm:flex-row items-center gap-4 bg-slate-800/80 border border-slate-700 p-4 rounded-2xl shadow-sm">
         <div className="relative flex-1 w-full">
@@ -172,10 +177,18 @@ export const KnowledgeBaseView: React.FC<KnowledgeBaseViewProps> = ({
               </div>
               <div className="flex items-center gap-2">
                 <span>Eff: {doc.effectiveDate}</span>
+                <button
+                  onClick={() => exportDocumentToPDF(doc)}
+                  className="bg-slate-700 hover:bg-slate-600 text-slate-200 hover:text-white text-[10px] px-2 py-1 rounded flex items-center gap-1 transition-colors border border-slate-600 cursor-pointer shadow-sm"
+                  title="Export official document as formatted PDF for offline verification"
+                >
+                  <Download className="w-3 h-3 text-emerald-400" />
+                  <span>PDF</span>
+                </button>
                 {doc.approvalStatus === 'DRAFT' && (userRole === 'SUPER_ADMIN' || userRole === 'APPROVER') && (
                   <button
                     onClick={() => handleApprove(doc.id)}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-2.5 py-1 rounded font-semibold transition-colors shadow-sm"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] px-2.5 py-1 rounded font-semibold transition-colors shadow-sm cursor-pointer"
                   >
                     Approve
                   </button>

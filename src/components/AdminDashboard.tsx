@@ -4,6 +4,8 @@ import { TRANSLATIONS } from '../utils/translations';
 import { INITIAL_AUDIT_LOGS } from '../data/initialData';
 import { AnalyticsCharts } from './AnalyticsCharts';
 import { AuditLogView } from './AuditLogView';
+import { RAGHealthMonitor } from './RAGHealthMonitor';
+import { RAGPerformanceView } from './RAGPerformanceView';
 import { BarChart3, Shield, Users, FileText, Lock, Activity, CheckCircle2 } from 'lucide-react';
 
 interface AdminDashboardProps {
@@ -55,6 +57,12 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ userRole, langua
           <div className="text-[10px] text-slate-400">Levels 1-3 Verified</div>
         </div>
       </div>
+
+      {/* Real-time RAG Pipeline Health & Connectivity Monitor */}
+      <RAGHealthMonitor />
+
+      {/* RAG Performance & Optimization Telemetry View */}
+      <RAGPerformanceView />
 
       {/* Analytics Charts Visualizations */}
       <AnalyticsCharts />

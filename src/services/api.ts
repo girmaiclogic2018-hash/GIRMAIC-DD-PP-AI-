@@ -126,3 +126,65 @@ export async function apiCreateEscalation(ticket: Partial<EscalationTicket>): Pr
     return null;
   }
 }
+
+export interface RAGHealthData {
+  status: 'HEALTHY' | 'DEGRADED' | 'OFFLINE';
+  retrievalLatencyMs: number;
+  cacheHitRate: number;
+  documentCoveragePercent: number;
+  activeVectorIndex: string;
+  geminiModel: string;
+  totalDocuments: number;
+  coverageByDomain: Record<string, number>;
+  lastHeartbeat: string;
+}
+
+export async function apiGetRAGHealth(): Promise<RAGHealthData | null> {
+  try {
+    return await apiRequest<RAGHealthData>('/api/rag/health', {
+      method: 'GET',
+    });
+  } catch (error) {
+    logger.error('API', 'apiGetRAGHealth failed', error);
+    return null;
+  }
+}
+
+export interface RAGPerformanceData {
+  latencyTrend: Array<{ time: string; latency: number; threshold: number }>;
+  cacheHitTrend: Array<{ hour: string; hitRate: number }>;
+  querySuccessMetrics: Array<{ category: string; verified: number; flagged: number }>;
+}
+
+export async function apiGetRAGPerformance(): Promise<RAGPerformanceData | null> {
+  try {
+    return await apiRequest<RAGPerformanceData>('/api/rag/performance', {
+      method: 'GET',
+    });
+  } catch (error) {
+    logger.error('API', 'apiGetRAGPerformance failed', error);
+    return null;
+  }
+}
+
+export interface PolicyFAQItem {
+  id: string;
+  question: string;
+  category: string;
+  domain: string;
+  answer: string;
+  sourceId: string;
+  sourceTitle: string;
+  verificationStatus: string;
+}
+
+export async function apiGetFAQs(): Promise<PolicyFAQItem[]> {
+  try {
+    return await apiRequest<PolicyFAQItem[]>('/api/faq', {
+      method: 'GET',
+    });
+  } catch (error) {
+    logger.error('API', 'apiGetFAQs failed', error);
+    return [];
+  }
+}
